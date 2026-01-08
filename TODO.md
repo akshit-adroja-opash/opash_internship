@@ -1,0 +1,6 @@
+- [x] Fix syntax errors in learn typescript/typenarrowing.ts
+  - [x] Remove extra opening brace in servchai function
+  - [x] Add missing closing brace for ctting class
+  - [x] Correct indentation and structure for the serve function
+  - [x] Add missing semicolons in chaiorder type
+  - [x] Fix the return statement in ischaiorder function
