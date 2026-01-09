@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="demo"></p>
+    <script>
+        const cars = ["Saab", "Volvo", "BMW" , "Toyota", "Honda"];
+        let len = cars.length;
+
+        let i= 2;
+        let TEXT = "";
+        for (let i=0; i < len; i++ )
+     {
+        TEXT += cars[i] + "<br>";
+
+       
+     }
+      document.getElementById("demo").innerHTML = TEXT;
+    </script>
+</body>
+</html>
