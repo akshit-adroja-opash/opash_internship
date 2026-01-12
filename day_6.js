@@ -1,5 +1,5 @@
 // Primitive types
-var name = "John Doe";
+var fullName = "John Doe";
 var age = 25;
 var isStudent = true;
 // Function to create a typed User object
