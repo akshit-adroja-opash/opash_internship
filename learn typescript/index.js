@@ -1,5 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 function greet(person) {
-    return "Hello, ".concat(person, ", welcome to TypeScript!");
+    return `Hello, ${person}, welcome to TypeScript!`;
 }
-var username = "greet(person: string): strinng ";
+const username = "greet(person: string): strinng ";
 console.log(greet(username));
+//# sourceMappingURL=index.js.map

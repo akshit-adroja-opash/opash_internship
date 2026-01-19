@@ -1,11 +1,13 @@
-var response = "45";
-var numerclength = response.length;
-var booking = '{"name": "the psycology of money"}';
-var bookobj = JSON.parse(booking);
-console.log("Book name is ".concat(bookobj.name));
-var inputelement = document.getElementById("username");
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+let response = "45";
+let numerclength = response.length;
+let booking = '{"name": "the psycology of money"}';
+let bookobj = JSON.parse(booking);
+console.log(`Book name is ${bookobj.name}`);
+const inputelement = document.getElementById("username");
 inputelement.value = "akshit";
-var value;
+let value;
 value = "chai";
 value = [1, 2, 3,];
 value = 2.5;
@@ -20,8 +22,8 @@ catch (error) {
     }
     console.log("error", error);
 }
-var data = "hello world";
-var strdata = data;
+const data = "hello world";
+const strdata = data;
 function redirectbasedinrole(role) {
     if (role === "admin") {
         console.log("redirect to admin dashboard");
@@ -38,3 +40,4 @@ function neverreturn() {
         console.log("this function never returns");
     }
 }
+//# sourceMappingURL=moretypes.js.map
