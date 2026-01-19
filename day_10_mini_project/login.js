@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const loginButton = document.getElementById('loginButton');
@@ -21,3 +23,4 @@ function validateEmail(email) {
 function validatePassword(password) {
     return password.length >= 6;
 }
+//# sourceMappingURL=login.js.map
