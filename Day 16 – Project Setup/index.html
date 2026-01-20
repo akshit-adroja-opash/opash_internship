@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlipKart Clone - Online Shopping</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-shopping-cart"></i>
+                FlipKart
+            </a>
+
+            <form action="/search" method="get" class="search-form">
+                <input type="text" id="search-input" name="query" placeholder="Search for products, brands and more">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+
+            <ul class="nav-links">
+                <li><a href="#login"><i class="fas fa-user"></i> Login</a></li>
+                <li><a href="#cart"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="#wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="#electronics">Electronics</a></li>
+                <li><a href="#fashion">Fashion</a></li>
+                <li><a href="#home">Home & Kitchen</a></li>
+                <li><a href="#sports">Sports</a></li>
+                <li><a href="#books">Books</a></li>
+                <li><a href="#beauty">Beauty</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZWxlY3Ryb25pY3N8ZW58MHx8MHx8fDA%3D" alt="Electronics Sale">
+                <div class="hero-content">
+                    <h2>Big Billion Days Sale!</h2>
+                    <p>Up to 70% off on Electronics</p>
+                    <a href="#shop" class="btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2>Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YW5kcm9pZCUyMHBob25lfGVufDB8fDB8fHww" alt="Mobiles">
+                    <h3>Mobiles</h3>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fHww" alt="Laptops">
+                    <h3>Laptops</h3>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Fashion">
+                    <h3>Fashion</h3>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG9tZSUyMGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D" alt="Home">
+                    <h3>Home & Kitchen</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aXBob25lfGVufDB8fDB8fHww" alt="iPhone 15">
+                    <div class="product-info">
+                        <h3>iPhone 15 Pro</h3>
+                        <p class="price">₹1,29,900 <span class="original-price">₹1,39,900</span></p>
+                        <p class="discount">7% off</p>
+                        <button class="btn-secondary">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cm9ib3R8ZW58MHx8MHx8fDA%3D" alt="Robot Vacuum">
+                    <div class="product-info">
+                        <h3>Robot Vacuum Cleaner</h3>
+                        <p class="price">₹24,999 <span class="original-price">₹34,999</span></p>
+                        <p class="discount">28% off</p>
+                        <button class="btn-secondary">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c21hcnR3YXRjaHxlbnwwfHwwfHx8MA%3D%3D" alt="Smart Watch">
+                    <div class="product-info">
+                        <h3>Smart Watch Series 8</h3>
+                        <p class="price">₹29,999 <span class="original-price">₹39,999</span></p>
+                        <p class="discount">25% off</p>
+                        <button class="btn-secondary">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aGVhZHBob25lc3xlbnwwfHwwfHx8MA%3D%3D" alt="Headphones">
+                    <div class="product-info">
+                        <h3>Wireless Headphones</h3>
+                        <p class="price">₹4,999 <span class="original-price">₹7,999</span></p>
+                        <p class="discount">37% off</p>
+                        <button class="btn-secondary">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>FlipKart is India's leading e-commerce platform offering a wide range of products at competitive prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#returns">Returns</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FlipKart Clone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+
+
+
+
+
