@@ -1,43 +1,26 @@
 const express = require("express");
 const Item = require("../models/Item");
-
 const router = express.Router();
 
-router.get("/users", async (req, res) => {
+router.get("/items", async (req, res) => {
   const items = await Item.find();
   res.json(items);
 });
 
-
-// create
-
-router.post("/.user",async(req,res) => {
-    const item = new Item(req.body);
-    await item.save();
-    res.json(item);
-
-
+router.post("/items", async (req, res) => {
+  const item = new Item(req.body);
+  await item.save();
+  res.json(item);
 });
 
-router.get("/.user",async(req,res) => {
-    const item = await Item(find)();
-    res.json(item);
-
-
+router.put("/items/:id", async (req, res) => {
+  await Item.findByIdAndUpdate(req.params.id, req.body);
+  res.json({ message: "Updated" });
 });
 
-router.put("/.user:id",async(req,res) => {
-    const item = new Item(req.params.id , req.body);
-    res.json({message: "updated"});
-
-
+router.delete("/items/:id", async (req, res) => {
+  await Item.findByIdAndDelete(req.params.id);
+  res.json({ message: "Deleted" });
 });
-
-router.post("/.user:id",async(req,res) => {
-    const item = new Item(req.params , );
-    res.json({message: "delete"});
-
-});
-
 
 module.exports = router;
