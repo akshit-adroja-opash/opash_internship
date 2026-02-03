@@ -1,0 +1,6 @@
+- [x] Rename component from Loginforn to LoginForm
+- [x] Remove invalid empty object { }
+- [x] Fix Grid layout: nest item inside container
+- [x] Add two TextField components for username and password
+- [x] Remove unused Button import
+- [x] Change Box component to div for better semantics
