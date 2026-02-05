@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import './App.css'
-import Loginform from './login';
+
 
 function App() {
+
   return (
     <div className="App">
-        <Loginform />
-        <></>
-    </div>
-  )
+      <h1>Welcome to React with Vite and TypeScript</h1>
+      </dashboard>
+  
+    </div>    
+   )
 }
 
 export default App

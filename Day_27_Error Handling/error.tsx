@@ -18,7 +18,7 @@ async function fakeFetchOther(userId: number) {
 }
 
 function fetchUserPosts(userId: number) {
-    return fakeFetchUser(userId)
+    return fakeFetchData(userId)
         .then(() => [])
         .catch((error) => {
             if (error instanceof Error) {
