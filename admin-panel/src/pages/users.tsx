@@ -3,12 +3,14 @@ import { useState } from "react";
 import { FaTrash, FaEdit, FaPlus, FaCheck } from "react-icons/fa";
 import { useUsers } from "../contexts/useUsers";
 
+
 const Users: FC = () => {
   const { users, addUser, deleteUser, updateUser } = useUsers();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [editId, setEditId] = useState<number | null>(null);
+
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

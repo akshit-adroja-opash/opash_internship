@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FaUsers, FaShoppingCart, FaRupeeSign } from "react-icons/fa";
 import DashboardCard from "../components/DashboardCard";
 import { useUsers } from "../contexts/useUsers";
+import "./dashboard.css";
 
 type DashboardData = {
   users: number;
@@ -39,15 +40,15 @@ const Dashboard: FC = () => {
 
   if (loading)
     return (
-      <div style={{ textAlign: "center", padding: "2rem" }}>
-        <h2 style={{ color: "#6b7280" }}>⏳ Loading Dashboard...</h2>
+      <div className="loading">
+        <h2>⏳ Loading Dashboard...</h2>
       </div>
     );
 
   if (error)
     return (
-      <div style={{ textAlign: "center", padding: "2rem" }}>
-        <h2 style={{ color: "#ef4444" }}>❌ {error}</h2>
+      <div className="error">
+        <h2>❌ {error}</h2>
       </div>
     );
 
