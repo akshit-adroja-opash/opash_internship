@@ -1,7 +1,7 @@
-# TODO: Fix Login and Registration
+# Performance Optimization TODO
 
-- [ ] Update api.ts to add login and register API functions
-- [ ] Modify Login.tsx to add form state, submission handler, API call, token storage, and navigation
-- [ ] Modify Register.tsx similarly with form functionality
-- [ ] Add error handling and user feedback in both components
-- [ ] Test the functionality by running the application
+- [ ] Update Dashboard.tsx: Import useCallback, wrap fetchIncomes, handleEdit, handleDelete, handleSuccess with useCallback.
+- [ ] Update IncomeTable.tsx: Import React.memo, wrap the component.
+- [ ] Update IncomeForm.tsx: Import React.memo, wrap the component.
+- [ ] Update IncomeChart.tsx: Import React.memo, wrap the component.
+- [ ] Test the app to ensure optimizations work and no re-renders occur unnecessarily.

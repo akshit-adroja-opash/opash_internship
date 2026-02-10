@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Footer from './pages/Footer';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
           <Route path="/register" element={<Register />} />
           <Route path='/navbar' element={<Navbar/>}/>
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Income } from '../types/finance';
+import './IncomeTable.css';
 
 interface Props {
   incomes: Income[];
@@ -7,10 +8,9 @@ interface Props {
   onDelete: (id: string) => void;
 }
 
-const IncomeTable: React.FC<Props> = ({ incomes, onEdit, onDelete }) => {
+const IncomeTable: React.FC<Props> = React.memo(({ incomes, onEdit, onDelete }) => {
   return (
     <div className="income-table-container">
-      <h2>Income List</h2>
       <table>
         <thead>
           <tr>
@@ -23,14 +23,14 @@ const IncomeTable: React.FC<Props> = ({ incomes, onEdit, onDelete }) => {
         </thead>
         <tbody>
           {incomes.map((income) => (
-            <tr key={income.id}>
+            <tr key={income._id}>
               <td>{income.title}</td>
-              <td>${income.amount}</td>
+              <td>₹{income.amount}</td>
               <td>{income.category}</td>
               <td>{new Date(income.date).toLocaleDateString()}</td>
               <td>
                 <button onClick={() => onEdit(income)}>Edit</button>
-                <button onClick={() => onDelete(income.id!)}>Delete</button>
+                <button onClick={() => onDelete(income._id!)}>Delete</button>
               </td>
             </tr>
           ))}
@@ -38,6 +38,6 @@ const IncomeTable: React.FC<Props> = ({ incomes, onEdit, onDelete }) => {
       </table>
     </div>
   );
-};
+});
 
 export default IncomeTable;
