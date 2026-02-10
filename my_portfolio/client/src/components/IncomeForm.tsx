@@ -1,99 +1,120 @@
 import { useState, useEffect } from "react";
 import type { Income } from "../types/finance";
-import './IncomeForm.css';
+import { addIncome, updateIncome } from "../services/api";
+import "./IncomeForm.css";
 
 interface Props {
-    token: string;
-    selectedIncome?: Income | null;
-    onSuccess: () => void;
+  token: string;
+  selectedIncome?: Income | null;
+  onSuccess: () => void;
+}
+
+interface FormData {
+  title: string;
+  amount: string;
+  category: string;
+  date: string;
 }
 
 const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
-    const [title, setTitle] = useState("");
-    const [amount, setAmount] = useState<number>(0);
-    const [category, setCategory] = useState("salary");
-    const [date, setDate] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    title: "",
+    amount: "",
+    category: "salary",
+    date: "",
+  });
 
-    useEffect(() => {
-        if (selectedIncome) {
-            setTitle(selectedIncome.title);
-            setAmount(selectedIncome.amount);
-            setCategory(selectedIncome.category);
-            setDate(selectedIncome.date.split("T")[0]);
-        } else {
-            setTitle("");
-            setAmount(0);
-            setCategory("salary");
-            setDate("");
-        }
-    }, [selectedIncome]);
+  useEffect(() => {
+    setFormData({
+      title: selectedIncome ? selectedIncome.title : "",
+      amount: selectedIncome ? selectedIncome.amount.toString() : "",
+      category: selectedIncome ? selectedIncome.category : "salary",
+      date: selectedIncome ? selectedIncome.date.split("T")[0] : "",
+    });
+  }, [selectedIncome]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const incomeData = { title, amount, category, date };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        const url = selectedIncome ? `/api/income/${selectedIncome.id}` : "/api/income";
-        const method = selectedIncome ? "PUT" : "POST";
+    if (!token) {
+      console.error("No token available. Please log in.");
+      return;
+    }
 
-        const response = await fetch(url, {
-            method,
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(incomeData),
-        });
+    try {
+      const incomeData = {
+        title: formData.title,
+        amount: parseFloat(formData.amount) || 0,
+        category: formData.category,
+        date: formData.date,
+      };
 
-        if (response.ok) {
-            setTitle("");
-            setAmount(0);
-            setCategory("salary");
-            setDate("");
-            onSuccess();
-        } else {
-            console.error("Error saving income");
-        }
-    };
+      if (selectedIncome) {
+        await updateIncome(token, selectedIncome._id, incomeData);
+      } else {
+        await addIncome(token, incomeData);
+      }
 
-    return (
-        <div className="income-form-container">
-            <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder="Income title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-            />
-            <input
-                type="number"
-                placeholder="Amount"
-                value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
-                required
-            />
-            <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-            >
-                <option value="salary">Salary</option>
-                <option value="freelance">Freelance</option>
-                <option value="business">Business</option>
-                <option value="investment">Investment</option>
-                <option value="other">Other</option>
-            </select>
-            <input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-            />
-            <button type="submit">
-                {selectedIncome ? "Update Income" : "Add Income"}
-            </button>
-            </form>
-        </div>
-    );
+      setFormData({
+        title: "",
+        amount: "",
+        category: "salary",
+        date: "",
+      });
+      onSuccess();
+    } catch (error) {
+      console.error("Error saving income:", error);
+    }
+  };
+
+  return (
+    <div className="income-form-container">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Income title"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          required
+        />
+
+        <input
+          type="text"
+          placeholder="Amount"
+          value={formData.amount}
+          inputMode="numeric"
+          pattern="[0-9]*"
+          onChange={(e) => {
+            const value = e.target.value;
+            // sirf numbers allow
+            if (/^\d*$/.test(value)) {
+              setFormData({ ...formData, amount: value });
+            }
+          }}
+          required
+        />
+
+        <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
+          <option value="salary">Salary</option>
+          <option value="freelance">Freelance</option>
+          <option value="business">Business</option>
+          <option value="investment">Investment</option>
+          <option value="other">Other</option>
+        </select>
+
+        <input
+          type="date"
+          value={formData.date}
+          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+          required
+        />
+
+        <button type="submit">
+          {selectedIncome ? "Update Income" : "Add Income"}
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default IncomeForm;

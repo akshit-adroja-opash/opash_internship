@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import IncomeChart from "../components/IncomeChart";
 import IncomeForm from "../components/IncomeForm";
 import IncomeTable from "../components/IncomeTable";
 import type { Income } from "../types/finance";
+import { getIncomes, deleteIncome } from "../services/api";
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -10,21 +11,24 @@ const Dashboard: React.FC = () => {
   const [selectedIncome, setSelectedIncome] = useState<Income | null>(null);
   const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
 
-  const fetchIncomes = () => {
+  const fetchIncomes = useCallback(async () => {
     if (!token) return;
 
-    fetch("/api/income", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setIncomes(data))
-      .catch((error) => console.error("Error fetching incomes:", error));
-  };
+    try {
+      const data = await getIncomes(token);
+      setIncomes(data);
+    } catch (error) {
+      console.error("Error fetching incomes:", error);
+    }
+  }, [token]);
 
   useEffect(() => {
-    fetchIncomes();
+    const loadIncomes = async () => {
+      if (token) {
+        await fetchIncomes();
+      }
+    };
+    loadIncomes();
   }, [token]);
 
   const handleEdit = (income: Income) => {
@@ -35,18 +39,8 @@ const Dashboard: React.FC = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(`/api/income/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        setIncomes(incomes.filter((income) => income.id !== id));
-      } else {
-        console.error("Error deleting income");
-      }
+      await deleteIncome(token, id);
+      setIncomes(incomes.filter((income) => income._id !== id));
     } catch (error) {
       console.error("Error deleting income:", error);
     }
@@ -58,11 +52,19 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="dashboard-container">
       <h1>Dashboard</h1>
-      <IncomeForm token={token!} selectedIncome={selectedIncome} onSuccess={handleSuccess} />
-      <IncomeChart incomes={incomes} />
-      <IncomeTable incomes={incomes} onEdit={handleEdit} onDelete={handleDelete} />
+      <div className="dashboard-section">
+        <h2>Add/Edit Income</h2>
+        <IncomeForm token={token!} selectedIncome={selectedIncome} onSuccess={handleSuccess} />
+      </div>
+      <div className="dashboard-section">
+        <h2>Income Chart</h2>
+        <IncomeChart incomes={incomes} />
+      </div>
+      <div className="dashboard-section">
+        <IncomeTable incomes={incomes} onEdit={handleEdit} onDelete={handleDelete} />
+      </div>
     </div>
   );
 
