@@ -1,0 +1,197 @@
+.products-container {
+    animation: fadeIn 0.4s ease;
+}
+
+.status-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.add-main-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.pro-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #f1f5f9;
+    transition: 0.3s;
+}
+
+.pro-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.pro-img-wrapper {
+    position: relative;
+    height: 200px;
+    background: #f8fafc;
+}
+
+.pro-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 1rem;
+}
+
+.pro-category {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.pro-info {
+    padding: 1.5rem;
+}
+
+.pro-info h3 {
+    font-size: 1.1rem;
+    margin: 0 0 8px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pro-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+    height: 40px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.pro-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pro-price {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+.pro-actions .delete {
+    width: 65px;
+
+}
+
+.pro-actions {
+    
+    display: flex;
+    gap: 2px;
+}
+
+.btn-icon {
+    width: 56px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.edit { background: #eff6ff; color: #3b82f6; }
+.delete { background: #fef2f2; color: #ef4444; }
+.edit:hover { background: #3b82f6; color: white; }
+.delete:hover { background: #ef4444; color: white; }
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: white;
+    width: 500px;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.modern-form .form-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.modern-form input, .modern-form textarea {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    outline: none;
+}
+
+.modern-form input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    margin-top: 1rem;
+    cursor: pointer;
+}

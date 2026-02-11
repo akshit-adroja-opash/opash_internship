@@ -40,8 +40,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       return JSON.parse(savedUsers);
     }
     return [
-      { id: 1, name: "John Doe", email: "john@example.com" },
-      { id: 2, name: "Jane Smith", email: "jane@example.com" },
+      { id: 1, name: "Akshit Adroja", email: "Akshit@example.com" },
+      { id: 2, name: "Jeel Mavani", email: "Jeel@example.com" },
     ];
   });
 

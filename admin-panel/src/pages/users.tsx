@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { useState } from "react";
-import { FaTrash, FaEdit, FaPlus, FaCheck } from "react-icons/fa";
+import { FiTrash2, FiEdit3, FiUserPlus, FiCheck, FiX, FiMail, FiUser } from "react-icons/fi";
 import { useUsers } from "../contexts/useUsers";
-
+import "./users.css"
 
 const Users: FC = () => {
   const { users, addUser, deleteUser, updateUser } = useUsers();
@@ -11,43 +11,30 @@ const Users: FC = () => {
   const [emailError, setEmailError] = useState("");
   const [editId, setEditId] = useState<number | null>(null);
 
-
   const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleAddUser = () => {
+  const handleAction = () => {
     if (!name || !email) {
-      setEmailError("Please enter both name and email");
+      setEmailError("Both fields are required");
       return;
     }
     if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address");
+      setEmailError("Invalid email format");
       return;
     }
-    const newUser = { id: Date.now(), name, email };
-    addUser(newUser);
+
+    if (editId !== null) {
+      updateUser(editId, { id: editId, name, email });
+      setEditId(null);
+    } else {
+      addUser({ id: Date.now(), name, email });
+    }
+    
     setName("");
     setEmail("");
     setEmailError("");
-  };
-
-  const handleDelete = (id: number) => {
-    deleteUser(id);
-  };
-
-  const handleUpdate = () => {
-    if (editId === null) return;
-    if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address");
-      return;
-    }
-    setEmailError("");
-    updateUser(editId, { id: editId, name, email });
-    setEditId(null);
-    setName("");
-    setEmail("");
   };
 
   const handleEdit = (user: { id: number; name: string; email: string }) => {
@@ -56,135 +43,95 @@ const Users: FC = () => {
     setEmail(user.email);
   };
 
-  const handleCancel = () => {
+  const resetForm = () => {
     setEditId(null);
     setName("");
     setEmail("");
+    setEmailError("");
   };
 
   return (
-    <div className="users-container">
-      <div className="users-header">
-        <h1>👥 Users Management</h1>
-        <p style={{ color: "#6b7280", marginTop: "0.5rem" }}>
-          Manage all users in the system
-        </p>
-      </div>
-
-      <div className="form-container" style={{ maxWidth: "100%", marginBottom: "2rem" }}>
-        <h2 style={{ marginBottom: "1.5rem", marginTop: 0 }}>
-          {editId ? "Edit User" : "Add New User"}
-        </h2>
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="Enter user name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            style={{ margin: 0, flex: 1 }}
-          />
-          <input
-            type="email"
-            placeholder="Enter email address"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (emailError) setEmailError("");
-            }}
-            style={{ margin: 0, flex: 1 }}
-          />
-          {emailError && <p style={{ color: "red", fontSize: "0.875rem", margin: "0.5rem 0" }}>{emailError}</p>}
-          {editId ? (
-            <>
-              <button
-                onClick={handleUpdate}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  margin: 0,
-                  backgroundColor: "#10b981",
-                }}
-              >
-                <FaCheck /> Update
-              </button>
-              <button
-                onClick={handleCancel}
-                style={{ margin: 0, backgroundColor: "#6b7280" }}
-              >
-                Cancel
-              </button>
-            </>
-          ) : (
-            <button
-              onClick={handleAddUser}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                margin: 0,
-              }}
-            >
-              <FaPlus /> Add User
-            </button>
-          )}
+    <div className="users-view">
+      <header className="view-header">
+        <div>
+          <h1>User Management</h1>
+          <p>Total active members: {users.length}</p>
         </div>
-      </div>
+      </header>
 
-      <div>
-        <h2 style={{ marginBottom: "1rem", marginTop: 0 }}>
-          All Users ({users.length})
-        </h2>
-        {users.length > 0 ? (
-          <ul className="users-list">
-            {users.map((user) => (
-              <li
-                key={user.id}
-                style={{
-                  opacity: editId === user.id ? 0.7 : 1,
-                  border: editId === user.id ? "2px solid #3b82f6" : "1px solid #e5e7eb",
-                }}
-              >
-                <div className="user-info">
-                  <strong>{user.name}</strong>
-                  <em>{user.email}</em>
-                </div>
-                <div className="user-actions">
-                  <button
-                    onClick={() => handleEdit(user)}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      backgroundColor: "#3b82f6",
-                    }}
-                  >
-                    <FaEdit /> Edit
-                  </button>
-                  <button
-                    className="danger"
-                    onClick={() => handleDelete(user.id)}
-                    style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-                  >
-                    <FaTrash /> Delete
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div
-            style={{
-              textAlign: "center",
-              padding: "3rem",
-              background: "white",
-              borderRadius: "12px",
-              color: "#6b7280",
-            }}
-          >
-            <p style={{ fontSize: "1.125rem" }}>No users yet. Add one to get started!</p>
+      <div className="users-grid-layout">
+        {/* Form Section */}
+        <aside className="user-form-card">
+          <h3>{editId ? "Update User" : "Add New User"}</h3>
+          <div className="modern-form">
+            <div className="form-group">
+              <label><FiUser /> Full Name</label>
+              <input 
+                type="text" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)} 
+                placeholder="Akshit Adroja" 
+              />
+            </div>
+            <div className="form-group">
+              <label><FiMail /> Email Address</label>
+              <input 
+                type="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                placeholder="Akshit@example.com" 
+              />
+              {emailError && <span className="error-text">{emailError}</span>}
+            </div>
+            <div className="form-actions">
+              <button className="primary-btn wide" onClick={handleAction}>
+                {editId ? <><FiCheck /> Update</> : <><FiUserPlus /> Add User</>}
+              </button>
+              {editId && <button className="ghost-btn wide" onClick={resetForm}><FiX /> Cancel</button>}
+            </div>
           </div>
-        )}
+        </aside>
+
+        {/* List Section */}
+        <section className="user-list-container">
+          {users.length > 0 ? (
+            <div className="table-responsive">
+              <table className="user-table">
+                <thead>
+                  <tr>
+                    <th>User Detail</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id} className={editId === user.id ? "editing-row" : ""}>
+                      <td>
+                        <div className="user-profile">
+                          <div className="user-avatar">{user.name.charAt(0)}</div>
+                          <span className="user-name">{user.name}</span>
+                        </div>
+                      </td>
+                      <td><span className="user-email">{user.email}</span></td>
+                      <td>
+                        <div className="action-row">
+                          <button className="icon-btn edit" onClick={() => handleEdit(user)}><FiEdit3 /></button>
+                          <button className="icon-btn delete" onClick={() => deleteUser(user.id)}><FiTrash2 /></button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="empty-state">
+              <FiUser size={48} />
+              <p>No users found in the system.</p>
+            </div>
+          )}
+        </section>
       </div>
     </div>
   );

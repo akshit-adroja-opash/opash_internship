@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { FaUsers, FaShoppingCart, FaRupeeSign } from "react-icons/fa";
+import { FiUsers, FiShoppingBag, FiDollarSign } from "react-icons/fi";
 import DashboardCard from "../components/DashboardCard";
 import { useUsers } from "../contexts/useUsers";
 import "./dashboard.css";
@@ -29,7 +29,7 @@ const Dashboard: FC = () => {
           revenue: result.total,
         });
       } catch {
-        setError("failed to load dashboard data");
+        setError("Failed to load dashboard data");
       } finally {
         setLoading(false);
       }
@@ -38,43 +38,52 @@ const Dashboard: FC = () => {
     fetchDashboardData();
   }, [users.length]);
 
-  if (loading)
-    return (
-      <div className="loading">
-        <h2>⏳ Loading Dashboard...</h2>
-      </div>
-    );
+  if (loading) return (
+    <div className="status-container">
+      <div className="spinner"></div>
+      <p>Refreshing data...</p>
+    </div>
+  );
 
-  if (error)
-    return (
-      <div className="error">
-        <h2>❌ {error}</h2>
-      </div>
-    );
+  if (error) return (
+    <div className="status-container">
+      <div className="error-box">{error}</div>
+    </div>
+  );
 
   if (!data) return null;
 
   return (
-    <div className="dashboard">
-      <h2>📊 Dashboard Overview</h2>
-      <div className="card-container">
+    <div className="dashboard-view">
+      <header className="view-header">
+        <div>
+          <h2 className="view-title">Dashboard Overview</h2>
+          <p className="view-subtitle">Welcome back! Here is what's happening today.</p>
+        </div>
+        <button className="primary-btn">Generate Report</button>
+      </header>
+
+      <div className="stats-grid">
         <DashboardCard
           title="Total Users"
-          value={data.users}
-          icon={FaUsers}
-          bgColor="#e0f2ff"
+          value={data.users.toLocaleString()}
+          icon={FiUsers}
+          color="#3b82f6"
+          trend="+12%"
         />
         <DashboardCard
           title="Total Orders"
           value={data.orders}
-          icon={FaShoppingCart}
-          bgColor="#e6ffe6"
+          icon={FiShoppingBag}
+          color="#10b981"
+          trend="+5%"
         />
         <DashboardCard
-          title="Revenue"
-          value={`$${data.revenue}`}
-          icon={FaRupeeSign}
-          bgColor="#fff4e6"
+          title="Total Revenue"
+          value={`$${data.revenue.toLocaleString()}`}
+          icon={FiDollarSign}
+          color="#f59e0b"
+          trend="+18%"
         />
       </div>
     </div>
