@@ -1,17 +1,42 @@
-.main-layout {
-  display: flex;
-  height: 100vh;
+:root {
+    --sidebar-width: 260px;
+    --bg-light: #f8fafc; /* Professional light gray background */
 }
 
-.content {
-  flex: 1;
-  margin-left: 250px;
-  display: flex;
-  flex-direction: column;
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-light);
 }
 
-.content main {
-  flex: 1;
-  padding: 2rem;
-  background: #f9fafb;
+.main-wrapper {
+    flex: 1;
+    margin-left: var(--sidebar-width); /* Sidebar ki jagah chodi */
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Box-sizing issue fix karne ke liye */
+}
+
+.page-content {
+    padding: 2rem;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.content-container {
+    max-width: 1400px; 
+    margin: 0 auto;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --sidebar-width: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-wrapper {
+        margin-left: 0; 
+    }
 }

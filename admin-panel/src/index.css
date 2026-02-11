@@ -1,4 +1,14 @@
 :root {
+  /* Light Mode Colors */
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-sidebar: #0f172a;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --input-bg: #f8fafc;
+  --header-bg: rgba(255, 255, 255, 0.8);
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -11,6 +21,18 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme='dark'] {
+  /* Dark Mode Colors (Deep & Modern) */
+  --bg-main: #020617;
+  --bg-card: #1e293b;
+  --bg-sidebar: #020617; /* Even darker sidebar for contrast */
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --input-bg: #0f172a;
+  --header-bg: rgba(2, 6, 23, 0.8);
 }
 
 .dashboard {

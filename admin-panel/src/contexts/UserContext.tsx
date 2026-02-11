@@ -9,8 +9,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return JSON.parse(savedUsers);
     }
     return [
-      { id: 1, name: "John Doe", email: "john@example.com" },
-      { id: 2, name: "Jane Smith", email: "jane@example.com" },
+      { id: 1, name: "Akshit Adroja", email: "Akshit@gmail.com" },
+      { id: 2, name: "Jeel Mavani", email: "Jeel@gmail.com" },
     ];
   });
 
@@ -47,4 +47,5 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       {children}
     </UserContext.Provider>
   );
+  
 };
