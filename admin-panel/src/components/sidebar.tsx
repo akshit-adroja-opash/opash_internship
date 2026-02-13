@@ -1,9 +1,18 @@
 import type { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FiGrid, FiUsers, FiSettings, FiShoppingBag, FiLogOut } from "react-icons/fi"; // Modern thinner icons
+import { useAuth } from "../contexts/AuthContext";
 import "./sidebar.css";
 
 const Sidebar: FC = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
@@ -42,7 +51,7 @@ const Sidebar: FC = () => {
       </nav>
 
       <div className="sidebar-footer">
-        <button className="logout-btn">
+        <button className="logout-btn" onClick={handleLogout}>
           <FiLogOut />
           <span>Logout</span>
         </button>
