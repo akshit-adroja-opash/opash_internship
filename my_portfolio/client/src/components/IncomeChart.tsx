@@ -8,20 +8,20 @@ import {
   PointElement,
   Title,
   Tooltip,
-  Filler, // Area shading ke lice zaroori hai
-  Legend,
+  Filler, 
+  // Legend,
 } from "chart.js";
-import type { ScriptableContext, TooltipItem } from "chart.js";
+import type {  TooltipItem, Chart, ScriptableLineSegmentContext } from "chart.js";
 import type { Income } from "../types/finance";
 import './IncomeChart.css';
 
 // Vertical line plugin for dotted line on hover
 const verticalLinePlugin = {
   id: 'verticalLine',
-  afterDraw: (chart: any) => {
-    if (chart.tooltip?._active?.length) {
+  afterDraw: (chart: Chart<'line'>) => {
+    if (chart.tooltip?.active && chart.tooltip.active.length > 0) {
       const { ctx } = chart;
-      const activePoint = chart.tooltip._active[0];
+      const activePoint = chart.tooltip.active[0];
       const x = activePoint.element.x;
       const topY = chart.scales.y.top;
       const bottomY = chart.scales.y.bottom;
@@ -59,36 +59,16 @@ type Period = '1week' | 'monthly' | '3months' | '6months' | '1year' | '5years' |
 const IncomeChart = ({ incomes }: Props) => {
   const [selectedPeriod, setSelectedPeriod] = useState<Period>('monthly');
 
-  // Helper to format date based on period for the Tooltip
-  const formatTooltipTitle = (label: string, period: Period) => {
-    const date = new Date(label);
-    switch (period) {
-      case '1week':
-        return date.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' });
-      case 'monthly':
-      case '3months':
-        return `Week of ${date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}`;
-      case '1year':
-        return date.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
-      default:
-        return label;
-    }
-  };
+
 
   const filterIncomes = (incomes: Income[], period: Period): Income[] => {
     const now = new Date();
     let startDate: Date;
 
     switch (period) {
-      case '1week': {
-        const currentMonth = now.getMonth();
-        const currentYear = now.getFullYear();
-        const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
-        const startOfLastWeek = new Date(lastDayOfMonth);
-        startOfLastWeek.setDate(lastDayOfMonth.getDate() - 6);
-        startDate = startOfLastWeek;
+      case '1week':
+        startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
         break;
-      }
       case 'monthly':
         startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
         break;
@@ -123,18 +103,18 @@ const IncomeChart = ({ incomes }: Props) => {
 
       switch (period) {
         case '1week':
-          key = date.toLocaleDateString('en-IN', { weekday: 'short' });
+          key = date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
           sortKey = date.toISOString();
           break;
         case 'monthly':
-          key = date.toLocaleDateString();
+          key = date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
           sortKey = date.toISOString();
           break;
         case '3months':
         case '6months': {
           const weekStart = new Date(date);
           weekStart.setDate(date.getDate() - date.getDay());
-          key = `Week of ${weekStart.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}`;
+          key = `Week of ${weekStart.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`;
           sortKey = weekStart.toISOString();
           break;
         }
@@ -176,11 +156,12 @@ const IncomeChart = ({ incomes }: Props) => {
         const date = new Date(item.sortKey);
         switch (period) {
           case '1week':
-            return date.toLocaleDateString('en-IN', { weekday: 'short' });
+            return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
           case 'monthly':
+            return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
           case '3months':
           case '6months':
-            return `Week of ${date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}`;
+            return `Week of ${date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`;
           case '1year':
             return date.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
           case 'all':
@@ -204,11 +185,7 @@ const IncomeChart = ({ incomes }: Props) => {
   const currentLabels = chartData[selectedPeriod]?.labels || [];
   const currentData = chartData[selectedPeriod]?.data || [];
 
-  // Calculate current price and change
-  const currentPrice = currentData.length > 0 ? currentData[currentData.length - 1] : 0;
-  const previousPrice = currentData.length > 1 ? currentData[currentData.length - 2] : 0;
-  const priceChange = currentPrice - previousPrice;
-  const priceChangePercent = previousPrice > 0 ? ((priceChange / previousPrice) * 100).toFixed(0) : '0';
+
 
   const options = {
     responsive: true,
@@ -224,11 +201,11 @@ const IncomeChart = ({ incomes }: Props) => {
         backgroundColor: '#111',
         titleColor: '#888',
         callbacks: {
-          label: (context: any) => {
+          label: (context: TooltipItem<'line'>) => {
             const val = context.parsed.y;
-            const prev = context.dataset.data[context.dataIndex - 1];
-            const prefix = (prev && val < prev) ? '▼' : '▲';
-            return `${prefix} ₹${val.toLocaleString()}`;
+            const prev = context.dataset.data[context.dataIndex - 1] as number | undefined;
+            const prefix = (prev !== undefined && val !== null && val !== undefined && val < prev) ? '▼' : '▲';
+            return `${prefix} ₹${val?.toLocaleString() || '0'}`;
           }
         }
       },
@@ -266,10 +243,10 @@ const IncomeChart = ({ incomes }: Props) => {
         pointRadius: 0,
         // --- Red/Green Logic Starts Here ---
         segment: {
-          borderColor: (ctx: any) => {
-            const p0 = ctx.p0.parsed.y; // Pichla point
-            const p1 = ctx.p1.parsed.y; // Current point
-            return p1 >= p0 ? '#10b981' : '#f44336'; // Green if up, Red if down
+          borderColor: (ctx: ScriptableLineSegmentContext) => {
+            const p0 = ctx.p0?.parsed?.y ?? 0; // Pichla point
+            const p1 = ctx.p1?.parsed?.y ?? 0; // Current point
+            return (p1 >= p0) ? '#10b981' : '#f44336'; // Green if up, Red if down
           }
         },
         backgroundColor: (context: any) => {
@@ -286,13 +263,13 @@ const IncomeChart = ({ incomes }: Props) => {
   return (
     <div className="finance-card">
       <div className="time-tabs">
-        {['1week', 'monthly', '3months', '6months', '1year', 'all'].map((p) => (
+        {['1week', 'monthly', '3months', '6months', '1year', '5years', 'all'].map((p) => (
           <button
             key={p}
             className={selectedPeriod === p ? 'tab active' : 'tab'}
             onClick={() => setSelectedPeriod(p as Period)}
           >
-            {p.replace('1week', '1W').replace('monthly', '1M').replace('3months', '3M').replace('6months', '6M').replace('1year', '1Y').toUpperCase()}
+            {p.replace('1week', '1W').replace('monthly', '1M').replace('3months', '3M').replace('6months', '6M').replace('1year', '1Y').replace('5years', '5Y').toUpperCase()}
           </button>
         ))}
       </div>

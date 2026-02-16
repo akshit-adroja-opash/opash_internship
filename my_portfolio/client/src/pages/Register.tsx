@@ -19,14 +19,14 @@ const Register: React.FC = () => {
     try {
       await registerUser(name, email, password);
       navigate('/login');
-    } catch (err: any) {
+    } catch (err : string | unknown | Error) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  return (
+  return (   
     <div className="register-container">
       <h1>Register Page</h1>
       <form onSubmit={handleSubmit}>
