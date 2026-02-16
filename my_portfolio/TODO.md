@@ -1,7 +1,5 @@
-# Performance Optimization TODO
-
-- [ ] Update Dashboard.tsx: Import useCallback, wrap fetchIncomes, handleEdit, handleDelete, handleSuccess with useCallback.
-- [ ] Update IncomeTable.tsx: Import React.memo, wrap the component.
-- [ ] Update IncomeForm.tsx: Import React.memo, wrap the component.
-- [ ] Update IncomeChart.tsx: Import React.memo, wrap the component.
-- [ ] Test the app to ensure optimizations work and no re-renders occur unnecessarily.
+- [ ] Fix filterIncomes for '1week' to filter last 7 days from today
+- [ ] Update groupData key for '1week' to daily date and for 'monthly' to include year
+- [ ] Update chartData labels generation for '1week' and 'monthly' to daily dates
+- [ ] Adjust formatTooltipTitle for 'monthly' as daily and separate '3months'
+- [ ] Add '5years' to buttons array and label replacement

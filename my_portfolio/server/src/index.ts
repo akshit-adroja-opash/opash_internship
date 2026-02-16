@@ -1,10 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import connectDB from './config/db.js';
-import authRoutes from './routes/auth.js';
-import incomeRoutes from './routes/income.js';
-import investmentRoutes from './routes/investment.js';
+import connectDB from './config/db';
+import authRoutes from './routes/auth';
+import incomeRoutes from './routes/income';
+import investmentRoutes from './routes/investment';
 
 dotenv.config();
 

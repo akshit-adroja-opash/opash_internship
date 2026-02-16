@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "NodeNext",          // Better for modern Node projects
-    "moduleResolution": "NodeNext", // Ensures TypeScript finds imports correctly
+    "module": "CommonJS",          // CommonJS works better with ts-node
+    "moduleResolution": "Node",    // Node resolution works better with ts-node
     "lib": ["ES2020"],
     "outDir": "./dist",
     "rootDir": "./src",
@@ -11,8 +11,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "verbatimModuleSyntax": true    // You can actually turn this back on now!
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
