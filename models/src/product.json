@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Stylish Chair",
+    "price": 120.00,
+    "description": "A comfortable and stylish chair for your living room.",
+    "featured": false,
+    "rating": 4.5,
+    "company": "ikea"
+  },
+  {
+    "name": "Modern Sofa",
+    "price": 499.99,
+    "description": "A sleek, modern sofa made with high-quality fabric.",
+    "featured": true,
+    "rating": 4.9,
+    "company": "liddy"
+  },
+  {
+    "name": "Coffee Table",
+    "price": 85.50,
+    "description": "A minimalist coffee table, perfect for any home decor.",
+    "featured": false,
+    "rating": 4.2,
+    "company": "caressa"
+  },
+  {
+    "name": "Ergonomic Desk",
+    "price": 250.00,
+    "description": "A desk designed for comfort and productivity.",
+    "featured": true,
+    "rating": 4.8,
+    "company": "marcos"
+  },
+  {
+    "name": "King Size Bed",
+    "price": 899.00,
+    "description": "Luxurious king size bed with a sturdy frame.",
+    "featured": false,
+    "rating": 5.0,
+    "company": "liddy"
+  }
+]
