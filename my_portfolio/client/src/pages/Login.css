@@ -1,85 +1,138 @@
+/* Login.css - Old Money Heritage Style */
+
 .login-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 30px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e9ecef;
-  text-align: center;
-}
-
-.login-container h1 {
-  margin-bottom: 30px;
-  color: #2c3e50;
-  font-size: 2em;
-  font-weight: 700;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.login-container form {
+  min-height: calc(100vh - 100px); /* Adjust for Navbar */
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--om-bg);
+  padding: 2rem;
+  animation: fadeIn 0.8s ease-out;
 }
 
+/* Page Heading */
+.login-container h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: var(--om-navy);
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+/* Login Form Card */
+.login-container form {
+  background: var(--om-white);
+  padding: 3.5rem;
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid var(--om-border);
+  /* Signature Old Money Architectural Shadow */
+  box-shadow: 20px 20px 0px var(--om-navy);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Input Fields - Underline Luxury Style */
 .login-container input {
-  padding: 12px 15px;
-  border: 2px solid #ced4da;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: #ffffff;
+  border: none;
+  border-bottom: 2px solid var(--om-border);
+  background: transparent;
+  padding: 12px 5px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: var(--om-navy);
+  transition: all 0.4s ease;
 }
 
 .login-container input:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-}
-
-.login-container button {
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  transition: background 0.3s ease, transform 0.2s ease;
-  margin-top: 10px;
-  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
-}
-
-.login-container button:hover {
-  background: linear-gradient(135deg, #2980b9 0%, #21618c 100%);
+  border-bottom-color: var(--om-gold);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.4);
 }
 
-.login-container button:active {
-  transform: translateY(0);
+.login-container input::placeholder {
+  color: #a0a0a0;
+  font-style: italic;
+  font-size: 0.9rem;
 }
 
+/* The Action Button */
+.login-container button {
+  background-color: var(--om-navy);
+  color: var(--om-white);
+  border: 1px solid var(--om-navy);
+  padding: 18px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  margin-top: 1rem;
+}
+
+.login-container button:hover:not(:disabled) {
+  background-color: transparent;
+  color: var(--om-navy);
+  box-shadow: 0px 8px 25px rgba(26, 42, 68, 0.1);
+}
+
+.login-container button:disabled {
+  background-color: var(--om-border);
+  border-color: var(--om-border);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Error Alert - Sophisticated Style */
+.error {
+  color: #8B0000; /* Burgundy warning */
+  background-color: rgba(139, 0, 0, 0.05);
+  padding: 1rem;
+  border: 1px solid rgba(139, 0, 0, 0.2);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+}
+
+/* Navigation Link */
 .login-container p {
-  margin-top: 20px;
-  font-size: 0.9em;
-  color: #7f8c8d;
+  margin-top: 2rem;
+  color: var(--om-text);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
 }
 
-.login-container p a {
-  color: #3498db;
+.login-container a {
+  color: var(--om-navy);
   text-decoration: none;
-  transition: color 0.3s ease;
+  font-weight: 700;
+  border-bottom: 1px solid var(--om-gold);
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
 }
 
-.login-container p a:hover {
-  color: #2980b9;
+.login-container a:hover {
+  color: var(--om-gold);
+  border-bottom-color: var(--om-navy);
 }
 
-.login-container .error {
-  color: #e74c3c;
-  margin-top: 10px;
-  font-size: 0.9em;
+/* Fade In Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .login-container form {
+    padding: 2rem;
+    box-shadow: 10px 10px 0px var(--om-navy);
+  }
 }

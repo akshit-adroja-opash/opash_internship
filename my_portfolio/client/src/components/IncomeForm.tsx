@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { Income } from "../types/finance";
 import { addIncome, updateIncome } from "../services/api";
 import "./IncomeForm.css";
@@ -17,21 +17,22 @@ interface FormData {
 }
 
 const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
-  const [formData, setFormData] = useState<FormData>({
-    title: "",
-    amount: "",
-    category: "salary",
-    date: "",
+  const [formData, setFormData] = useState<FormData>(() => {
+    if (selectedIncome) {
+      return {
+        title: selectedIncome.title,
+        amount: selectedIncome.amount.toString(),
+        category: selectedIncome.category,
+        date: selectedIncome.date.split("T")[0],
+      };
+    }
+    return {
+      title: "",
+      amount: "",
+      category: "salary",
+      date: "",
+    };
   });
-
-  useEffect(() => {
-    setFormData({
-      title: selectedIncome ? selectedIncome.title : "",
-      amount: selectedIncome ? selectedIncome.amount.toString() : "",
-      category: selectedIncome ? selectedIncome.category : "salary",
-      date: selectedIncome ? selectedIncome.date.split("T")[0] : "",
-    });
-  }, [selectedIncome]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,12 +65,26 @@ const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
       onSuccess();
     } catch (error) {
       console.error("Error saving income:", error);
+      // Type guard for error with response
+      const err = error as { response?: { data?: { message?: string } }; request?: unknown };
+      if (err.response) {
+        // Server responded with error
+        console.error("Server error:", err.response.data);
+        alert(`Error: ${err.response.data?.message || "Failed to save income"}`);
+      } else if (err.request) {
+        // Request made but no response
+        console.error("No response from server");
+        alert("Server is not responding. Please try again.");
+      } else {
+        // Error in setting up request
+        alert("An error occurred. Please try again.");
+      }
     }
   };
 
   return (
     <div className="income-form-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} key={selectedIncome?._id || 'new-form'}>
         <input
           type="text"
           placeholder="Income title"
@@ -79,15 +94,16 @@ const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
         />
 
         <input
-          type="text"
+          type="number"
           placeholder="Amount"
           value={formData.amount}
-          inputMode="numeric"
-          pattern="[0-9]*"
+          inputMode="decimal"
+          step="0.01"
+          min="0"
           onChange={(e) => {
             const value = e.target.value;
-            // sirf numbers allow
-            if (/^\d*$/.test(value)) {
+            // Allow numbers with decimals for salary amounts
+            if (/^\d*\.?\d*$/.test(value)) {
               setFormData({ ...formData, amount: value });
             }
           }}

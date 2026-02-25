@@ -1,101 +1,132 @@
+/* IncomeTable.css - Old Money Aesthetics */
+
 .income-table-container {
   width: 100%;
   overflow-x: auto;
+  background-color: var(--om-white);
+  border: 1px solid var(--om-border);
+  box-shadow: 15px 15px 0px var(--om-navy); /* Consistent with Dashboard cards */
+  margin-top: 1rem;
 }
 
-.income-table-container h2 {
-  margin-bottom: 20px;
-  color: #34495e;
-  font-size: 1.5em;
-  font-weight: 600;
-}
-
-.income-table-container table {
+table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.income-table-container thead {
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-  color: #ffffff;
-}
-
-.income-table-container th,
-.income-table-container td {
-  padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #ecf0f1;
+  font-family: 'Inter', sans-serif;
 }
 
-.income-table-container th {
-  font-weight: 600;
+/* Header Styling - Royal Navy & Gold */
+thead tr {
+  background-color: var(--om-navy);
+  color: var(--om-white);
+}
+
+th {
+  padding: 1.2rem 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  font-size: 0.9em;
-  letter-spacing: 0.5px;
+  letter-spacing: 2px;
+  border-bottom: 2px solid var(--om-gold);
 }
 
-.income-table-container tbody tr:hover {
-  background-color: #f8f9fa;
+/* Row Styling */
+td {
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid var(--om-border);
+  color: var(--om-text);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
 }
 
-.income-table-container tbody tr:last-child td {
-  border-bottom: none;
+tbody tr:hover {
+  background-color: #F9F8F4; /* Light Cream hover */
 }
 
+/* Amount Column - Subtle Emphasis */
+td:nth-child(2) {
+  font-weight: 600;
+  color: var(--om-navy);
+  font-family: 'Playfair Display', serif;
+}
+
+/* Actions Buttons - Minimalist Heritage Style */
 .income-table-container button {
-  padding: 8px 16px;
-  margin: 0 8px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  background: transparent;
+  border: 1px solid var(--om-border);
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: all 0.3s ease;
+  color: var(--om-navy);
 }
 
-.income-table-container button:first-child {
-  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+/* Edit Button */
+.income-table-container button:first-of-type:hover {
+  background-color: var(--om-navy);
+  color: var(--om-white);
+  border-color: var(--om-navy);
+}
+
+/* Delete Button */
+.income-table-container button:last-of-type {
+  color: #8B0000; /* Deep Burgundy for warning */
+  border-color: rgba(139, 0, 0, 0.2);
+}
+
+.income-table-container button:last-of-type:hover {
+  background-color: #8B0000;
   color: white;
-  box-shadow: 0 2px 4px rgba(243, 156, 18, 0.3);
+  border-color: #8B0000;
 }
 
-.income-table-container button:first-child:hover {
-  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(243, 156, 18, 0.4);
-}
-
-.income-table-container button:last-child {
-  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-  color: white;
-  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
-}
-
-.income-table-container button:last-child:hover {
-  background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.4);
-}
-
-.income-table-container button:active {
-  transform: translateY(0);
-}
-
+/* --- MOBILE RESPONSIVE LEDGER --- */
 @media (max-width: 768px) {
-  .income-table-container th,
-  .income-table-container td {
-    padding: 8px 10px;
-    font-size: 14px;
+  table, thead, tbody, th, td, tr {
+    display: block;
   }
 
-  .income-table-container button {
-    padding: 4px 8px;
-    font-size: 12px;
+  thead {
+    display: none; /* Hide headers on mobile */
+  }
+
+  tr {
+    border-bottom: 2px solid var(--om-navy);
+    padding: 1rem 0;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-bottom: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--om-gold);
+    letter-spacing: 1px;
+  }
+
+  /* Assign labels via CSS if not added in HTML */
+  td:nth-of-type(1)::before { content: "Title"; }
+  td:nth-of-type(2)::before { content: "Amount"; }
+  td:nth-of-type(3)::before { content: "Category"; }
+  td:nth-of-type(4)::before { content: "Date"; }
+  
+  td:last-child {
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    border-top: 1px solid var(--om-border);
+    padding-top: 1rem;
   }
 }

@@ -1,13 +1,13 @@
-import { Router } from "express";
-import type { Request, Response, NextFunction } from "express";
+import { Router, type Request, type Response, type NextFunction } from "express";
 import multer from "multer";
 import upload from "../middleware/upload";
 import { deleteImage } from "../controllers/media.controller";
-
+import { verifyTokenMiddleware, requireAdmin } from "../middleware/auth";
+import type { AuthRequest } from "../middleware/auth";
 
 const router = Router();
 
-// Error handling middleware for multer
+
 const handleUploadError = (
   err: unknown,
   req: Request,
@@ -38,22 +38,22 @@ const handleUploadError = (
   next();
 };
 
+
 router.post(
   "/upload-image",
+  verifyTokenMiddleware,
   upload.single("image"),
   handleUploadError,
-  (req: Request, res: Response) => {
+  (req: AuthRequest, res: Response) => {
     if (!req.file) {
-      res
-        .status(400)
-        .json({
-          message:
-            "No file uploaded. Make sure to send the file with field name 'image'",
-        });
+      res.status(400).json({
+        message:
+          "No file uploaded. Make sure to send the file with field name 'image'",
+      });
       return;
     }
 
-    // Cloudinary storage adds 'secure_url' to the file object
+    
     const file = req.file as unknown as { secure_url: string };
     const imageUrl = file.secure_url;
 
@@ -61,9 +61,15 @@ router.post(
       message: "Image uploaded to Cloudinary successfully",
       imageUrl: imageUrl,
     });
-
-    router.delete("/delete-image", deleteImage);
   }
+);
+
+
+router.delete(
+  "/delete-image",
+  verifyTokenMiddleware,
+  requireAdmin,
+  deleteImage
 );
 
 export default router;

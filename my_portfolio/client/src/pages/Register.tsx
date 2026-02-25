@@ -19,8 +19,12 @@ const Register: React.FC = () => {
     try {
       await registerUser(name, email, password);
       navigate('/login');
-    } catch (err : string | unknown | Error) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unexpected error occurred');
+      }
     } finally {
       setLoading(false);
     }

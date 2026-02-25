@@ -1,11 +1,16 @@
-import express from "express";
-import Investment from "../models/Investment.js";
-import authMiddleware from "../middleware/authMiddleware.js";
-const router = express.Router();
-router.post("/", authMiddleware, async (req, res) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const Investment_js_1 = __importDefault(require("../models/Investment.js"));
+const authMiddleware_js_1 = __importDefault(require("../middleware/authMiddleware.js"));
+const router = express_1.default.Router();
+router.post("/", authMiddleware_js_1.default, async (req, res) => {
     try {
         const { name, amount, type, date, description } = req.body;
-        const investment = await Investment.create({
+        const investment = await Investment_js_1.default.create({
             userId: req.userId,
             name,
             amount,
@@ -20,9 +25,9 @@ router.post("/", authMiddleware, async (req, res) => {
         res.status(500).json({ message: "Failed to add investment" });
     }
 });
-router.get("/", authMiddleware, async (req, res) => {
+router.get("/", authMiddleware_js_1.default, async (req, res) => {
     try {
-        const investments = await Investment.find({ userId: req.userId })
+        const investments = await Investment_js_1.default.find({ userId: req.userId })
             .sort({ date: -1 });
         res.json(investments);
     }
@@ -31,9 +36,9 @@ router.get("/", authMiddleware, async (req, res) => {
         res.status(500).json({ message: "Failed to fetch investments" });
     }
 });
-router.put("/:id", authMiddleware, async (req, res) => {
+router.put("/:id", authMiddleware_js_1.default, async (req, res) => {
     try {
-        const updated = await Investment.findOneAndUpdate({
+        const updated = await Investment_js_1.default.findOneAndUpdate({
             _id: req.params.id, userId: req.userId
         }, req.body, { new: true });
         res.json(updated);
@@ -43,9 +48,9 @@ router.put("/:id", authMiddleware, async (req, res) => {
         res.status(500).json({ message: "Update failed" });
     }
 });
-router.delete("/:id", authMiddleware, async (req, res) => {
+router.delete("/:id", authMiddleware_js_1.default, async (req, res) => {
     try {
-        const deleted = await Investment.findOneAndDelete({
+        const deleted = await Investment_js_1.default.findOneAndDelete({
             _id: req.params.id,
             userId: req.userId,
         });
@@ -59,4 +64,4 @@ router.delete("/:id", authMiddleware, async (req, res) => {
         res.status(500).json({ message: "Failed to delete investment" });
     }
 });
-export default router;
+exports.default = router;

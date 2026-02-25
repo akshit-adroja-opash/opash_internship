@@ -1,42 +1,39 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App.css - The Luxury Framework */
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Puri screen ki height */
+  background-color: var(--om-bg); /* Warm Linen background */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.main-content {
+  flex: 1; /* Ye content ko push karega taaki footer niche rahe */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Scrollbar ko bhi Old Money vibe dete hain */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+::-webkit-scrollbar-track {
+  background: var(--om-bg);
 }
 
-.card {
-  padding: 2em;
+::-webkit-scrollbar-thumb {
+  background: var(--om-navy);
+  border: 3px solid var(--om-bg);
 }
 
-.read-the-docs {
-  color: #888;
+/* Global Transition */
+.main-content > * {
+  animation: pageSlideIn 0.6s ease-out;
+}
+
+@keyframes pageSlideIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }

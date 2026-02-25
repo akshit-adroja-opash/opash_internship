@@ -9,7 +9,15 @@ import './Dashboard.css';
 const Dashboard: React.FC = () => {
   const [incomes, setIncomes] = useState<Income[]>([]);
   const [selectedIncome, setSelectedIncome] = useState<Income | null>(null);
-  const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+  const token = localStorage.getItem("token");
+  
+  // Debug: Log token availability
+  useEffect(() => {
+    console.log("Token available:", !!token);
+    if (!token) {
+      console.warn("No token found! Please log in.");
+    }
+  }, [token]);
 
   const fetchIncomes = useCallback(async () => {
     if (!token) return;

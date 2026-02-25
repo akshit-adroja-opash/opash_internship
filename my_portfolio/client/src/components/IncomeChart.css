@@ -1,45 +1,72 @@
+/* IncomeChart.css - Heritage Styling */
+
 .finance-card {
-  background: #000;
-  border: 1px solid #222;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  padding: 20px;
-  border-radius: 12px;
+  background: var(--om-white);
+  border: 1px solid var(--om-border);
+  padding: 2rem;
+  box-shadow: 15px 15px 0px var(--om-navy); /* Match Dashboard shadow */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
 }
 
-.chart-wrapper {
-  height: 350px;
-  position: relative;
-}
-
+/* Time Tabs Styling */
 .time-tabs {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  justify-content: flex-start;
   gap: 10px;
+  background-color: var(--om-bg);
+  padding: 5px;
+  border-radius: 0; /* Keep it sharp */
+  border: 1px solid var(--om-border);
+  width: fit-content;
 }
 
 .tab {
-  background: #1a1a1a;
-  border: 1px solid #444;
-  color: #ccc;
+  background: transparent;
+  border: none;
   padding: 8px 16px;
-  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--om-navy);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.tab:hover {
-  background: #2a2a2a;
-  border-color: #555;
-}
-
 .tab.active {
-  background: #10b981;
-  border-color: #10b981;
-  color: #fff;
+  background-color: var(--om-navy);
+  color: var(--om-bg);
 }
 
-/* Custom Cursor for Share Market Feel */
-.chart-container canvas {
-  cursor: crosshair !important;
+.tab:hover:not(.active) {
+  background-color: rgba(26, 42, 68, 0.05);
+}
+
+/* Chart Height & Scaling */
+.chart-wrapper {
+  height: 450px; /* Increased height for premium feel */
+  width: 100%;
+  position: relative;
+}
+
+/* Tooltip & Canvas Overrides via ChartJS options are handled in JS, 
+   but we can ensure container flexibility here */
+canvas {
+  max-width: 100% !important;
+}
+
+/* Responsive Tweak */
+@media (max-width: 768px) {
+  .chart-wrapper {
+    height: 300px;
+  }
+  
+  .time-tabs {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }

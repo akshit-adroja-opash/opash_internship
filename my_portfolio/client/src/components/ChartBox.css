@@ -1,20 +1,48 @@
 .chart-box-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  text-align: center;
+  background-color: var(--om-white);
+  border: 1px solid var(--om-border);
+  padding: 2.5rem;
+  /* Old Money signature: Sharp edges and solid offset shadow */
+  box-shadow: 10px 10px 0px var(--om-navy);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.chart-box-container:hover {
+  transform: translate(-5px, -5px);
+  box-shadow: 15px 15px 0px var(--om-gold);
 }
 
 .chart-box-container h2 {
-  margin-bottom: 10px;
-  color: #333;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--om-navy);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--om-border);
+  padding-bottom: 12px;
+  margin: 0;
 }
 
 .chart-box-container p {
-  color: #666;
+  font-family: 'Inter', sans-serif;
+  color: #5a5a5a;
+  font-style: italic; /* Ledger notes style */
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Decoration element - like a vintage stamp or seal */
+.chart-box-container::after {
+  content: "EST. 2026";
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: var(--om-border);
+  letter-spacing: 1px;
 }
