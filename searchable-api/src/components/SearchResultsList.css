@@ -1,0 +1,25 @@
+.results-list {
+  width: 100%;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+  border-radius: 14px;
+  margin-top: 1rem;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.results-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.results-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+}
+
+.results-list::-webkit-scrollbar-track {
+  background: transparent;
+}

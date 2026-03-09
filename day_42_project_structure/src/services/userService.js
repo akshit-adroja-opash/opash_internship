@@ -40,7 +40,7 @@ const deleteUser = async (userId) => {
         userId,
         { isActive: false },
         { new: true }
-    );
+    );  
     return user;
 };
 
