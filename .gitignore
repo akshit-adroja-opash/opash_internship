@@ -1,0 +1,5 @@
+# Ignore environment files containing secrets
+backend-ledger/.env
+
+# Ignore node_modules directories everywhere
+**/node_modules/
