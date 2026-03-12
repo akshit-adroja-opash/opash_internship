@@ -40,7 +40,11 @@ const deleteUser = async (userId) => {
         userId,
         { isActive: false },
         { new: true }
+<<<<<<< HEAD
     );  
+=======
+    );
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
     return user;
 };
 

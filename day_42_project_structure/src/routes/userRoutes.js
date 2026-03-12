@@ -7,7 +7,11 @@ const {
     getUserByIdHandler,
     updateUserHandler,
     deleteUserHandler
+<<<<<<< HEAD
 } = require("../controllers/userController");   m                                                                                                          
+=======
+} = require("../controllers/userController");
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
 
 // Routes
 router.post("/users", createUserHandler);

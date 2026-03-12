@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* IncomeChart.css - Heritage Styling */
 
 .finance-card {
@@ -32,10 +33,39 @@
   font-weight: 600;
   letter-spacing: 1px;
   color: var(--om-navy);
+=======
+.finance-card {
+  background: #000;
+  border: 1px solid #222;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.chart-wrapper {
+  height: 350px;
+  position: relative;
+}
+
+.time-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.tab {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 8px 16px;
+  border-radius: 4px;
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
+<<<<<<< HEAD
 .tab.active {
   background-color: var(--om-navy);
   color: var(--om-bg);
@@ -70,3 +100,20 @@ canvas {
     white-space: nowrap;
   }
 }
+=======
+.tab:hover {
+  background: #2a2a2a;
+  border-color: #555;
+}
+
+.tab.active {
+  background: #10b981;
+  border-color: #10b981;
+  color: #fff;
+}
+
+/* Custom Cursor for Share Market Feel */
+.chart-container canvas {
+  cursor: crosshair !important;
+}
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1

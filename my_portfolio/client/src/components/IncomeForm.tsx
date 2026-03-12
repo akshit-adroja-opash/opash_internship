@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import { useState, useEffect } from "react";
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
 import type { Income } from "../types/finance";
 import { addIncome, updateIncome } from "../services/api";
 import "./IncomeForm.css";
@@ -17,6 +21,7 @@ interface FormData {
 }
 
 const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
+<<<<<<< HEAD
   const [formData, setFormData] = useState<FormData>(() => {
     if (selectedIncome) {
       return {
@@ -34,6 +39,24 @@ const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
     };
   });
 
+=======
+  const [formData, setFormData] = useState<FormData>({
+    title: "",
+    amount: "",
+    category: "salary",
+    date: "",
+  });
+
+  useEffect(() => {
+    setFormData({
+      title: selectedIncome ? selectedIncome.title : "",
+      amount: selectedIncome ? selectedIncome.amount.toString() : "",
+      category: selectedIncome ? selectedIncome.category : "salary",
+      date: selectedIncome ? selectedIncome.date.split("T")[0] : "",
+    });
+  }, [selectedIncome]);
+
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -65,6 +88,7 @@ const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
       onSuccess();
     } catch (error) {
       console.error("Error saving income:", error);
+<<<<<<< HEAD
       // Type guard for error with response
       const err = error as { response?: { data?: { message?: string } }; request?: unknown };
       if (err.response) {
@@ -79,12 +103,18 @@ const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
         // Error in setting up request
         alert("An error occurred. Please try again.");
       }
+=======
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
     }
   };
 
   return (
     <div className="income-form-container">
+<<<<<<< HEAD
       <form onSubmit={handleSubmit} key={selectedIncome?._id || 'new-form'}>
+=======
+      <form onSubmit={handleSubmit}>
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
         <input
           type="text"
           placeholder="Income title"
@@ -94,6 +124,7 @@ const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
         />
 
         <input
+<<<<<<< HEAD
           type="number"
           placeholder="Amount"
           value={formData.amount}
@@ -104,6 +135,17 @@ const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
             const value = e.target.value;
             // Allow numbers with decimals for salary amounts
             if (/^\d*\.?\d*$/.test(value)) {
+=======
+          type="text"
+          placeholder="Amount"
+          value={formData.amount}
+          inputMode="numeric"
+          pattern="[0-9]*"
+          onChange={(e) => {
+            const value = e.target.value;
+            // sirf numbers allow
+            if (/^\d*$/.test(value)) {
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
               setFormData({ ...formData, amount: value });
             }
           }}

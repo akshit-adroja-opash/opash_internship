@@ -19,10 +19,16 @@ import './IncomeChart.css';
 const verticalLinePlugin = {
   id: 'verticalLine',
   afterDraw: (chart: Chart<'line'>) => {
+<<<<<<< HEAD
     const active = chart.tooltip?.active;
     if (active && Array.isArray(active) && active.length > 0) {
       const { ctx } = chart;
       const activePoint = active[0];
+=======
+    if (chart.tooltip?.active && chart.tooltip.active.length > 0) {
+      const { ctx } = chart;
+      const activePoint = chart.tooltip.active[0];
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
       const x = activePoint.element.x;
       const topY = chart.scales.y.top;
       const bottomY = chart.scales.y.bottom;
@@ -250,7 +256,11 @@ const IncomeChart = ({ incomes }: Props) => {
             return (p1 >= p0) ? '#10b981' : '#f44336'; // Green if up, Red if down
           }
         },
+<<<<<<< HEAD
         backgroundColor: (context: any  ) => {
+=======
+        backgroundColor: (context: any) => {
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, 0, 0, 400);
           gradient.addColorStop(0, 'rgba(16, 185, 129, 0.2)');

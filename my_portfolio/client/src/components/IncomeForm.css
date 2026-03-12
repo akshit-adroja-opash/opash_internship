@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* IncomeForm.css - Old Money Luxury System */
 
 .income-form-container {
@@ -86,5 +87,108 @@
 @media (max-width: 1023px) {
   .income-form-container {
     padding-bottom: 2rem;
+=======
+.income-form-wrapper {
+  width: 100%;
+}
+
+.modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-left: 4px;
+}
+
+.modern-form input, 
+.modern-form select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.modern-form input:focus, 
+.modern-form select:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #00d2ff;
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+}
+
+/* Date Picker Icon Color Fix */
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.submit-btn {
+  position: relative;
+  margin-top: 1rem;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.btn-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.submit-btn:hover .btn-glow {
+  opacity: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .input-row {
+    grid-template-columns: 1fr;
+>>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
   }
 }
