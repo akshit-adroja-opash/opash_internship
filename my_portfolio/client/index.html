@@ -1,17 +1,93 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="dark" lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
-    <title>My Portfolio</title>
-=======
-    <title>client</title>
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
-  </head>
-  <body>
-    <div id="root"></div>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>PRECISION.IO | Salary Analytics</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#00e1ef",
+              "surface-container": "#171a1d",
+              "surface-bright": "#292c31",
+              "error-dim": "#d53d18",
+              "on-tertiary-container": "#00555b",
+              "inverse-on-surface": "#535559",
+              "inverse-primary": "#006f01",
+              "surface-dim": "#0c0e11",
+              "surface-container-lowest": "#000000",
+              "on-primary": "#005e00",
+              "error-container": "#b92902",
+              "tertiary-dim": "#00e1ef",
+              "on-tertiary": "#005f65",
+              "secondary": "#8ef9a5",
+              "on-primary-fixed-variant": "#006901",
+              "tertiary-fixed": "#21f0ff",
+              "primary": "#5bff49",
+              "on-error": "#450900",
+              "tertiary-container": "#21f0ff",
+              "background": "#0c0e11",
+              "secondary-fixed-dim": "#80eb98",
+              "primary-fixed-dim": "#4af03b",
+              "on-surface-variant": "#aaabaf",
+              "primary-dim": "#4af03b",
+              "surface": "#0c0e11",
+              "on-tertiary-fixed-variant": "#006066",
+              "surface-tint": "#5bff49",
+              "on-primary-container": "#003700",
+              "on-secondary": "#005f2b",
+              "on-background": "#f9f9fd",
+              "secondary-container": "#006d32",
+              "inverse-surface": "#f9f9fd",
+              "secondary-dim": "#80eb98",
+              "on-surface": "#f9f9fd",
+              "primary-container": "#07ca09",
+              "on-primary-fixed": "#004900",
+              "surface-container-high": "#1d2024",
+              "tertiary": "#9df7ff",
+              "outline": "#747579",
+              "surface-container-low": "#111417",
+              "surface-variant": "#23262a",
+              "secondary-fixed": "#8ef9a5",
+              "on-secondary-fixed": "#004a20",
+              "error": "#ff7351",
+              "surface-container-highest": "#23262a",
+              "on-secondary-fixed-variant": "#006a30",
+              "outline-variant": "#46484b",
+              "on-error-container": "#ffd2c8",
+              "on-secondary-container": "#e4ffe3",
+              "primary-fixed": "#5bff49",
+              "on-tertiary-fixed": "#004145"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(23, 26, 29, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
     <script type="module" src="/src/main.tsx"></script>
+  </head>
+  <body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen">
+    <div id="root"></div>
   </body>
 </html>

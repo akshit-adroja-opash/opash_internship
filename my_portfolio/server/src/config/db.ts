@@ -1,12 +1,15 @@
 import mongoose from 'mongoose';
+import logger from '../utils/logger';
 
 const connectDB = async (): Promise<void> => {
   try {
     const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/portfolio';
     await mongoose.connect(mongoURI);
-    console.log('MongoDB connected successfully');
+    logger.info('MongoDB connected successfully');
   } catch (error) {
-    console.error('MongoDB connection error:', error);
+    logger.error('CRITICAL: MongoDB connection failed. Ensure your MongoDB service is running.');
+    logger.error('Error Details:', error);
+    // Exit process with failure
     process.exit(1);
   }
 };

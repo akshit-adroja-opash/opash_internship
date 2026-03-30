@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const API_BASE_URL = 'http://localhost:5000/api';
 
 export const fetchData = async (url: string) => {
@@ -39,15 +40,17 @@ export const registerUser = async (name: string, email: string, password: string
   return response.json();
 };
 
- export const addIncome = async (
+export const addIncome = async (
   token: string,
   incomeData: {
-    title: string;
+title: string;
     amount: number;
     category: string;
     date: string;
+    notes?: string;
   }
- ) => {
+
+) => {
   const response = await fetch(`${API_BASE_URL}/income`, {
     method: 'POST',
     headers: {
@@ -56,17 +59,16 @@ export const registerUser = async (name: string, email: string, password: string
     },
     body: JSON.stringify(incomeData),
   });
+
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || 'Failed to add income');
   }
 
   return response.json();
+};
 
- };
-
- export const getIncomes = async (token: string) => {
-
+export const getIncomes = async (token: string) => {
   const response = await fetch(`${API_BASE_URL}/income`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -92,9 +94,9 @@ export const updateIncome = async (
   }
 ) => {
   const response = await fetch(`${API_BASE_URL}/income/${id}`, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(incomeData),
@@ -102,7 +104,7 @@ export const updateIncome = async (
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Failed to update income");
+    throw new Error(errorData.message || 'Failed to update income');
   }
 
   return response.json();
@@ -110,7 +112,7 @@ export const updateIncome = async (
 
 export const deleteIncome = async (token: string, id: string) => {
   const response = await fetch(`${API_BASE_URL}/income/${id}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -118,11 +120,12 @@ export const deleteIncome = async (token: string, id: string) => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Failed to delete income");
+    throw new Error(errorData.message || 'Failed to delete income');
   }
 
   return response.json();
 };
+
 
 
     

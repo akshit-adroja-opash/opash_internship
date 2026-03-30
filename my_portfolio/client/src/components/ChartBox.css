@@ -1,5 +1,4 @@
 .chart-box-container {
-<<<<<<< HEAD
   background-color: var(--om-white);
   border: 1px solid var(--om-border);
   padding: 2.5rem;
@@ -47,17 +46,6 @@
   color: var(--om-border);
   letter-spacing: 1px;
 }
-=======
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  text-align: center;
-}
 
 .chart-box-container h2 {
   margin-bottom: 10px;
@@ -67,4 +55,3 @@
 .chart-box-container p {
   color: #666;
 }
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1

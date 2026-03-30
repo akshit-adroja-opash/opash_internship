@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useMemo } from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -9,37 +11,29 @@ import {
   Title,
   Tooltip,
   Filler, 
-  // Legend,
 } from "chart.js";
 import type {  TooltipItem, Chart, ScriptableLineSegmentContext } from "chart.js";
 import type { Income } from "../types/finance";
 import './IncomeChart.css';
 
-// Vertical line plugin for dotted line on hover
 const verticalLinePlugin = {
   id: 'verticalLine',
   afterDraw: (chart: Chart<'line'>) => {
-<<<<<<< HEAD
     const active = chart.tooltip?.active;
     if (active && Array.isArray(active) && active.length > 0) {
       const { ctx } = chart;
       const activePoint = active[0];
-=======
-    if (chart.tooltip?.active && chart.tooltip.active.length > 0) {
-      const { ctx } = chart;
-      const activePoint = chart.tooltip.active[0];
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
       const x = activePoint.element.x;
       const topY = chart.scales.y.top;
       const bottomY = chart.scales.y.bottom;
 
       ctx.save();
       ctx.beginPath();
-      ctx.setLineDash([5, 5]); // Dotted line style
+      ctx.setLineDash([5, 5]);
       ctx.moveTo(x, topY);
       ctx.lineTo(x, bottomY);
       ctx.lineWidth = 1;
-      ctx.strokeStyle = '#888'; // Grey line
+      ctx.strokeStyle = '#888';
       ctx.stroke();
       ctx.restore();
     }
@@ -65,8 +59,6 @@ type Period = '1week' | 'monthly' | '3months' | '6months' | '1year' | '5years' |
 
 const IncomeChart = ({ incomes }: Props) => {
   const [selectedPeriod, setSelectedPeriod] = useState<Period>('monthly');
-
-
 
   const filterIncomes = (incomes: Income[], period: Period): Income[] => {
     const now = new Date();
@@ -148,7 +140,6 @@ const IncomeChart = ({ incomes }: Props) => {
     return Object.entries(grouped).map(([label, { value, sortKey }]) => ({ label, value, sortKey }));
   };
 
-  // Precompute data for each period
   const chartData = useMemo(() => {
     const periods: Period[] = ['1week', 'monthly', '3months', '6months', '1year', '5years', 'all'];
     const data: Record<Period, { labels: string[], data: number[], dates: string[] }> = {} as Record<Period, { labels: string[], data: number[], dates: string[] }>;
@@ -158,7 +149,6 @@ const IncomeChart = ({ incomes }: Props) => {
       const grouped = groupData(filtered, period);
       const sortedGrouped = grouped.sort((a, b) => a.sortKey.localeCompare(b.sortKey));
 
-      // Generate display labels based on period
       const labels = sortedGrouped.map(item => {
         const date = new Date(item.sortKey);
         switch (period) {
@@ -192,8 +182,6 @@ const IncomeChart = ({ incomes }: Props) => {
   const currentLabels = chartData[selectedPeriod]?.labels || [];
   const currentData = chartData[selectedPeriod]?.data || [];
 
-
-
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -204,7 +192,6 @@ const IncomeChart = ({ incomes }: Props) => {
     plugins: {
       tooltip: {
         enabled: true,
-        // Custom Tooltip style
         backgroundColor: '#111',
         titleColor: '#888',
         callbacks: {
@@ -212,7 +199,7 @@ const IncomeChart = ({ incomes }: Props) => {
             const val = context.parsed.y;
             const prev = context.dataset.data[context.dataIndex - 1] as number | undefined;
             const prefix = (prev !== undefined && val !== null && val !== undefined && val < prev) ? '▼' : '▲';
-            return `${prefix} ₹${val?.toLocaleString() || '0'}`;
+            return `${prefix} $${val?.toLocaleString() || '0'}`;
           }
         }
       },
@@ -228,7 +215,7 @@ const IncomeChart = ({ incomes }: Props) => {
         grid: { color: '#222' },
         ticks: {
           color: '#555',
-          callback: (value: string | number) => typeof value === 'number' ? '₹' + value.toLocaleString() : value
+          callback: (value: string | number) => typeof value === 'number' ? '$' + value.toLocaleString() : value
         }
       }
     },
@@ -248,19 +235,14 @@ const IncomeChart = ({ incomes }: Props) => {
         borderWidth: 2,
         tension: 0.4,
         pointRadius: 0,
-        // --- Red/Green Logic Starts Here ---
         segment: {
           borderColor: (ctx: ScriptableLineSegmentContext) => {
-            const p0 = ctx.p0?.parsed?.y ?? 0; // Pichla point
-            const p1 = ctx.p1?.parsed?.y ?? 0; // Current point
-            return (p1 >= p0) ? '#10b981' : '#f44336'; // Green if up, Red if down
+            const p0 = ctx.p0?.parsed?.y ?? 0;
+            const p1 = ctx.p1?.parsed?.y ?? 0;
+            return (p1 >= p0) ? '#10b981' : '#f44336';
           }
         },
-<<<<<<< HEAD
-        backgroundColor: (context: any  ) => {
-=======
-        backgroundColor: (context: any) => {
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
+        backgroundColor: (context:  any ) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, 0, 0, 400);
           gradient.addColorStop(0, 'rgba(16, 185, 129, 0.2)');

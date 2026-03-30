@@ -1,0 +1,26 @@
+/* Sidebar specific overrides/extensions */
+/* Reuses global dark theme classes */
+
+.sidebar {
+  /* Custom scrollbar for sidebar */
+  scrollbar-width: thin;
+  scrollbar-color: #5bff49 #23262a;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #23262a;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #5bff49;
+  border-radius: 2px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #4ad13e;
+}
+

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -38,12 +37,6 @@ const mongoose_1 = __importStar(require("mongoose"));
 const InvestmentSchema = new mongoose_1.Schema({
     userId: {
         type: mongoose_1.Schema.Types.ObjectId,
-=======
-import mongoose, { Document, Schema } from 'mongoose';
-const InvestmentSchema = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
         ref: 'User',
         required: true,
     },
@@ -71,8 +64,4 @@ const InvestmentSchema = new Schema({
         default: Date.now,
     },
 });
-<<<<<<< HEAD
 exports.default = mongoose_1.default.model('Investment', InvestmentSchema);
-=======
-export default mongoose.model('Investment', InvestmentSchema);
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1

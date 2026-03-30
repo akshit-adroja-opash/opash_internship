@@ -1,5 +1,0 @@
-- [ ] Fix filterIncomes for '1week' to filter last 7 days from today
-- [ ] Update groupData key for '1week' to daily date and for 'monthly' to include year
-- [ ] Update chartData labels generation for '1week' and 'monthly' to daily dates
-- [ ] Adjust formatTooltipTitle for 'monthly' as daily and separate '3months'
-- [ ] Add '5years' to buttons array and label replacement

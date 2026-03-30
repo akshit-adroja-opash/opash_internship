@@ -1,177 +1,154 @@
-<<<<<<< HEAD
-import { useState } from "react";
-=======
-import { useState, useEffect } from "react";
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState } from "react";
 import type { Income } from "../types/finance";
 import { addIncome, updateIncome } from "../services/api";
-import "./IncomeForm.css";
 
 interface Props {
   token: string;
   selectedIncome?: Income | null;
   onSuccess: () => void;
+  onCancel?: () => void;
 }
 
 interface FormData {
-  title: string;
   amount: string;
-  category: string;
   date: string;
+  source: string;
+  notes: string;
 }
 
-const IncomeForm = ({ token, selectedIncome, onSuccess }: Props) => {
-<<<<<<< HEAD
-  const [formData, setFormData] = useState<FormData>(() => {
-    if (selectedIncome) {
-      return {
-        title: selectedIncome.title,
-        amount: selectedIncome.amount.toString(),
-        category: selectedIncome.category,
-        date: selectedIncome.date.split("T")[0],
-      };
-    }
+const getInitialData = (selectedIncome?: Income | null): FormData => {
+  if (selectedIncome) {
     return {
-      title: "",
-      amount: "",
-      category: "salary",
-      date: "",
+      amount: selectedIncome.amount.toString(),
+      date: selectedIncome.date.split("T")[0],
+      source: selectedIncome.title || "",
+      notes: selectedIncome.notes || "",
     };
-  });
-
-=======
-  const [formData, setFormData] = useState<FormData>({
-    title: "",
+  }
+  return {
     amount: "",
-    category: "salary",
     date: "",
-  });
+    source: "",
+    notes: "",
+  };
+};
 
-  useEffect(() => {
-    setFormData({
-      title: selectedIncome ? selectedIncome.title : "",
-      amount: selectedIncome ? selectedIncome.amount.toString() : "",
-      category: selectedIncome ? selectedIncome.category : "salary",
-      date: selectedIncome ? selectedIncome.date.split("T")[0] : "",
-    });
-  }, [selectedIncome]);
+const IncomeForm: React.FC<Props> = ({ token, selectedIncome, onSuccess, onCancel }) => {
+  const [formData, setFormData] = useState<FormData>(() => getInitialData(selectedIncome));
 
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!token) {
-      console.error("No token available. Please log in.");
+      alert("No token available. Please log in.");
       return;
     }
 
     try {
       const incomeData = {
-        title: formData.title,
+        title: formData.source,
         amount: parseFloat(formData.amount) || 0,
-        category: formData.category,
+        category: formData.source || 'Salary', // Use source as category per TODO requirements
         date: formData.date,
+        notes: formData.notes,
       };
 
       if (selectedIncome) {
-        await updateIncome(token, selectedIncome._id, incomeData);
+        await updateIncome(token, selectedIncome._id!, incomeData);
       } else {
         await addIncome(token, incomeData);
       }
 
-      setFormData({
-        title: "",
-        amount: "",
-        category: "salary",
-        date: "",
-      });
+      setFormData(getInitialData(null));
       onSuccess();
-    } catch (error) {
-      console.error("Error saving income:", error);
-<<<<<<< HEAD
-      // Type guard for error with response
-      const err = error as { response?: { data?: { message?: string } }; request?: unknown };
-      if (err.response) {
-        // Server responded with error
-        console.error("Server error:", err.response.data);
-        alert(`Error: ${err.response.data?.message || "Failed to save income"}`);
-      } else if (err.request) {
-        // Request made but no response
-        console.error("No response from server");
-        alert("Server is not responding. Please try again.");
-      } else {
-        // Error in setting up request
-        alert("An error occurred. Please try again.");
-      }
-=======
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
+    } catch (error: any) {
+      alert(`Error: ${error.response?.data?.message || error.message || "Failed to save"}`);
     }
   };
 
   return (
-    <div className="income-form-container">
-<<<<<<< HEAD
-      <form onSubmit={handleSubmit} key={selectedIncome?._id || 'new-form'}>
-=======
-      <form onSubmit={handleSubmit}>
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
-        <input
-          type="text"
-          placeholder="Income title"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          required
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Amount & Date Grid */}
+      <div className="grid grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label htmlFor="amount" className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant ml-1">
+            Amount ($)
+          </label>
+          <div className="relative">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">$</span>
+            <input
+              id="amount"
+              className="w-full bg-surface-container-low border border-outline-variant/20 rounded-xl pl-12 pr-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-bold placeholder:text-outline/30"
+              placeholder="0.00"
+              type="number"
+              step="0.01"
+              value={formData.amount}
+              onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+              required
+            />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="date" className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant ml-1">
+            Date of Payment
+          </label>
+          <input
+            id="date"
+            className="w-full bg-surface-container-low border border-outline-variant/20 rounded-xl px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-medium"
+            type="date"
+            value={formData.date}
+            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+            required
+          />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <label htmlFor="source" className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant ml-1">
+          Source/Employer
+        </label>
+        <div className="relative">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-lg">corporate_fare</span>
+          <input
+            id="source"
+            className="w-full bg-surface-container-low border border-outline-variant/20 rounded-xl pl-16 pr-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-medium placeholder:text-outline/30"
+            placeholder="e.g. Google Cloud"
+            value={formData.source}
+            onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+            required
+          />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <label htmlFor="notes" className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant ml-1">
+          Notes
+        </label>
+        <textarea
+          id="notes"
+          className="w-full bg-surface-container-low border border-outline-variant/20 rounded-xl px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-medium placeholder:text-outline/30 min-h-[100px] resize-none"
+          placeholder="Additional details..."
+          value={formData.notes}
+          onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
         />
-
-        <input
-<<<<<<< HEAD
-          type="number"
-          placeholder="Amount"
-          value={formData.amount}
-          inputMode="decimal"
-          step="0.01"
-          min="0"
-          onChange={(e) => {
-            const value = e.target.value;
-            // Allow numbers with decimals for salary amounts
-            if (/^\d*\.?\d*$/.test(value)) {
-=======
-          type="text"
-          placeholder="Amount"
-          value={formData.amount}
-          inputMode="numeric"
-          pattern="[0-9]*"
-          onChange={(e) => {
-            const value = e.target.value;
-            // sirf numbers allow
-            if (/^\d*$/.test(value)) {
->>>>>>> 141e9be54f6220e14431bd7378ce7cb90bf863d1
-              setFormData({ ...formData, amount: value });
-            }
-          }}
-          required
-        />
-
-        <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
-          <option value="salary">Salary</option>
-          <option value="freelance">Freelance</option>
-          <option value="business">Business</option>
-          <option value="investment">Investment</option>
-          <option value="other">Other</option>
-        </select>
-
-        <input
-          type="date"
-          value={formData.date}
-          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-          required
-        />
-
-        <button type="submit">
-          {selectedIncome ? "Update Income" : "Add Income"}
+      </div>
+      {/* Footer Buttons - assume parent handles or add */}
+      <div className="flex items-center justify-end gap-4 pt-2">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="px-6 py-3 rounded-xl text-sm font-bold text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all"
+        >
+          Cancel
         </button>
-      </form>
-    </div>
+        <button
+          type="submit"
+          className="bg-primary hover:bg-primary-container text-on-primary-container px-8 py-3 rounded-xl text-sm font-bold flex items-center gap-2 shadow-lg shadow-primary/20 active:scale-95 transition-all"
+        >
+          <span className="material-symbols-outlined text-lg">save</span>
+          Save Entry
+        </button>
+      </div>
+    </form>
   );
 };
 

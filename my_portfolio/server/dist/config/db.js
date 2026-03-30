@@ -8,11 +8,6 @@ const connectDB = async () => {
     try {
         const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/portfolio';
         await mongoose_1.default.connect(mongoURI);
-import mongoose from 'mongoose';
-const connectDB = async () => {
-    try {
-        const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/portfolio';
-        await mongoose.connect(mongoURI);
         console.log('MongoDB connected successfully');
     }
     catch (error) {
@@ -20,6 +15,4 @@ const connectDB = async () => {
         process.exit(1);
     }
 };
-
-export default connectDB;
-    
+exports.default = connectDB;

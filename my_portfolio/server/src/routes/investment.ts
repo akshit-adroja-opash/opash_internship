@@ -1,7 +1,8 @@
 import express from "express";
-import Investment from "../models/Investment.js";
-import authMiddleware from "../middleware/authMiddleware.js";
+import Investment from "../models/Investment";
+import authMiddleware from "../middleware/authMiddleware";
 import type { Request, Response } from "express";
+import logger from "../utils/logger";
 
 interface AuthRequest extends Request {
   userId?: string;
@@ -24,7 +25,7 @@ router.post("/", authMiddleware, async (req: AuthRequest, res: Response) => {
 
         res.status(201).json({ message: "Investment added successfully", investment });
     } catch (error) {
-        console.error("Error adding investment:", error);
+        logger.error("Error adding investment:", error);
         res.status(500).json({ message: "Failed to add investment" });
     }
 });
@@ -35,7 +36,7 @@ router.get("/", authMiddleware, async (req: AuthRequest, res: Response) => {
             .sort({ date: -1 });
         res.json(investments);
     } catch (error) {
-        console.error("Error fetching investments:", error);
+        logger.error("Error fetching investments:", error);
         res.status(500).json({ message: "Failed to fetch investments" });
     }
 });
@@ -51,7 +52,7 @@ router.put("/:id", authMiddleware, async (req: AuthRequest, res: Response) => {
         );
         res.json(updated);
     } catch (error) {
-        console.error("Error updating investment:", error);
+        logger.error("Error updating investment:", error);
         res.status(500).json({ message: "Update failed" });
     }
 });
@@ -67,7 +68,7 @@ router.delete("/:id", authMiddleware, async (req: AuthRequest, res: Response) =>
         }
         res.json({ message: "Investment deleted successfully" });
     } catch (error) {
-        console.error("Error deleting investment:", error);
+        logger.error("Error deleting investment:", error);
         res.status(500).json({ message: "Failed to delete investment" });
     }
 });

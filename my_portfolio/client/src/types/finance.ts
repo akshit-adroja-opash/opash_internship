@@ -1,9 +1,10 @@
 export interface Income {
-    _id: string;   // ✅ REQUIRED
+    _id: string;
     title: string;
     amount: number;
     category: string;
     date: string;
+    notes?: string;
 }
 
 export interface Investment {
@@ -14,3 +15,4 @@ export interface Investment {
   date: string;
   description?: string;
 }
+
